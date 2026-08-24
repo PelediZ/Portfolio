@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freddy Limothie — Computer Science Student, Universitas Indonesia</title>
+<meta name="description" content="Portfolio of Freddy Limothie, a first-year Computer Science student at Universitas Indonesia exploring software development, AI, and machine learning through real projects.">
+<meta name="theme-color" content="#F5F2EA">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Freddy Limothie — Computer Science Student, Universitas Indonesia">
+<meta property="og:description" content="A first-year Computer Science student at Universitas Indonesia exploring software development, AI, and machine learning through real projects.">
+<meta property="og:site_name" content="Freddy Limothie">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Freddy Limothie — Computer Science Student, Universitas Indonesia">
+<meta name="twitter:description" content="A first-year Computer Science student at Universitas Indonesia exploring software development, AI, and machine learning through real projects.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600&display=swap">
+<style>
+  :root{
+    --bg:#F5F2EA;
+    --bg-soft:#EFEAdc;
+    --paper:#EAE4D4;
+    --ink:#17150F;
+    --ink-soft:#3A362E;
+    --muted:#6E6858;
+    --line: rgba(23,21,15,0.14);
+    --line-strong: rgba(23,21,15,0.28);
+    --accent:#B9812A;
+    --accent-deep:#8A5E17;
+    --accent-soft:#E7CE9F;
+    --nav-h:96px; /* real value is measured by JS at runtime — this is just a fallback */
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'General Sans',sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+    cursor:default;
+  }
+
+  ::selection{background:var(--accent-soft);color:var(--ink);}
+
+  /* keyboard focus — visible, on-brand, never removed */
+  a:focus-visible,
+  button:focus-visible{
+    outline:2px solid var(--accent-deep);
+    outline-offset:4px;
+    border-radius:1px;
+  }
+  .overlay-menu a:focus-visible{
+    outline-color:var(--accent-soft);
+    outline-offset:4px;
+  }
+  .cv-btn:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .container{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .display{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    line-height:0.92;
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s cubic-bezier(.16,.84,.44,1), transform 0.9s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:0.08s;}
+  .reveal-delay-2{transition-delay:0.16s;}
+  .reveal-delay-3{transition-delay:0.24s;}
+
+  /* project rows: slide in from the edge, unhurried */
+  .reveal.reveal-slide{
+    transform:translateX(-44px);
+    transition:opacity 1s cubic-bezier(.19,.72,.31,1), transform 1s cubic-bezier(.19,.72,.31,1);
+  }
+  .reveal.reveal-slide.in{transform:translateX(0);}
+
+  /* project numbers + case-study labels: a small pop, not a slide */
+  .reveal.reveal-pop{
+    transform:scale(0.55);
+    transition:opacity 0.55s ease, transform 0.6s cubic-bezier(.34,1.56,.64,1);
+    transition-delay:0.18s;
+  }
+  .reveal.reveal-pop.in{transform:scale(1);}
+
+  /* about / experience: rise with a whisper of scale, calmer than the hero */
+  .reveal.reveal-rise{
+    transform:translateY(18px) scale(0.985);
+    transition:opacity 1.1s ease, transform 1.1s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal.reveal-rise.in{transform:translateY(0) scale(1);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .reveal.reveal-slide, .reveal.reveal-pop, .reveal.reveal-rise{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:106;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 6vw;
+    background:rgba(245,242,234,0.62);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--line);
+    transition:background .4s ease .3s, backdrop-filter .4s ease .3s, border-bottom-color .4s ease .3s;
+  }
+  nav .brand{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--ink);
+    cursor:pointer;
+    transition:opacity .3s ease;
+  }
+  nav .brand:hover{opacity:0.7;}
+  .menu-btn{
+    position:relative;
+    z-index:110;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:none;
+    border:none;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    outline:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--ink);
+    cursor:pointer;
+    padding:6px;
+    margin:0;
+    transition:color .3s ease;
+  }
+  .menu-btn .bars{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    width:24px;
+    height:24px;
+    flex-shrink:0;
+    box-sizing:content-box;
+    background:var(--ink);
+    border-radius:50%;
+    padding:9px;
+    transition:background .3s ease;
+  }
+  .menu-btn .bars span{
+    display:block;width:20px;height:1.5px;background:var(--bg-soft);transition:transform .4s ease, opacity .3s ease;
+  }
+  body.menu-open .menu-btn .bars span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+  body.menu-open .menu-btn .bars span:nth-child(2){opacity:0;}
+  body.menu-open .menu-btn .bars span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+  /* once the dark overlay is up, the label text needs to read light instead of ink; the circle itself stays solid black */
+  body.menu-open .menu-btn{color:var(--bg-soft);}
+
+  /* nav loses its frosted glass while the menu is open, so the overlay reads clean underneath */
+  body.menu-open nav{
+    background:transparent;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    border-bottom-color:transparent;
+    transition:background .25s ease, backdrop-filter .25s ease, border-bottom-color .25s ease;
+  }
+
+  /* ============ FULLSCREEN MENU ============ */
+  .overlay-menu{
+    position:fixed;
+    inset:0;
+    background:var(--ink);
+    z-index:105;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 6vw;
+    clip-path: circle(0% at var(--menu-origin-x, 94vw) var(--menu-origin-y, 40px));
+    transition: clip-path 0.7s cubic-bezier(.7,0,.2,1);
+    pointer-events:none;
+  }
+  body.menu-open .overlay-menu{
+    clip-path: circle(150% at var(--menu-origin-x, 94vw) var(--menu-origin-y, 40px));
+    pointer-events:auto;
+  }
+  .overlay-menu ol{
+    list-style:none;
+  }
+  .overlay-menu li{
+    border-top:1px solid rgba(245,242,234,0.15);
+  }
+  .overlay-menu li:last-child{border-bottom:1px solid rgba(245,242,234,0.15);}
+  .overlay-menu a{
+    display:flex;
+    align-items:baseline;
+    gap:24px;
+    padding:18px 4px;
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(32px,7vw,68px);
+    color:var(--bg-soft);
+    transition:color .35s ease, padding-left .35s ease;
+  }
+  .overlay-menu a .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:.1em;
+  }
+  .overlay-menu a:hover{color:var(--accent-soft);padding-left:18px;}
+  .overlay-foot{
+    position:absolute;
+    bottom:40px;left:6vw;right:6vw;
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.14em;
+    color:rgba(245,242,234,0.4);
+    text-transform:uppercase;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding-top:calc(var(--nav-h) + 34px);
+    padding-bottom:40px;
+    scroll-margin-top:var(--nav-h);
+  }
+
+  .hero-top{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding-bottom:22px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:60px;
+  }
+
+  .hero-split{
+    display:grid;
+    grid-template-columns:0.95fr 1.15fr;
+    gap:4vw;
+    align-items:center;
+  }
+
+  .hero-tags{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    margin-bottom:22px;
+  }
+
+  .hero-name{
+    font-size:clamp(48px,7.6vw,116px);
+    text-transform:uppercase;
+  }
+
+  .tagline{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(20px,2.4vw,28px);
+    color:var(--ink-soft);
+    margin-top:32px;
+    max-width:38ch;
+  }
+  .word-cycle{
+    position:relative;
+    height:1.3em;
+    overflow:hidden;
+    display:inline-block;
+    vertical-align:bottom;
+  }
+  .word-cycle span{
+    position:absolute;
+    left:0;top:0;
+    opacity:0;
+    transform:translateY(100%);
+    transition:opacity .5s ease, transform .6s cubic-bezier(.7,0,.2,1);
+    font-style:italic;
+    color:var(--accent-deep);
+    white-space:nowrap;
+  }
+  .word-cycle span.active{opacity:1;transform:translateY(0);}
+  .word-cycle span.leaving{opacity:0;transform:translateY(-100%);}
+
+  .hero-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:44px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    padding-bottom:8px;
+    border-bottom:1px solid var(--ink);
+    transition:gap .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .hero-cta span{
+    color:var(--accent-deep);
+    font-size:15px;
+    transition:transform .3s ease;
+  }
+  .hero-cta:hover{gap:16px;color:var(--accent-deep);border-color:var(--accent-deep);}
+
+  .hero-photo-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:14px;
+  }
+  .hero-photo-frame{
+    position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    background:var(--paper);
+  }
+  .hero-photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .hero-badge{
+    position:absolute;
+    right:-14px;
+    bottom:-14px;
+    width:84px;height:84px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 35% 28%, rgba(255,255,255,0.4), rgba(255,255,255,0) 42%),
+      radial-gradient(circle at 50% 50%, var(--accent) 0%, var(--accent-deep) 100%);
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:600;
+    line-height:1.3;
+    letter-spacing:.02em;
+    box-shadow:
+      0 0 0 3px #17150F,
+      0 0 0 5px var(--accent-soft),
+      0 10px 24px rgba(23,21,15,0.45),
+      0 2px 6px rgba(23,21,15,0.3),
+      inset 0 2px 3px rgba(255,255,255,0.6),
+      inset 0 -4px 5px rgba(0,0,0,0.4);
+    text-shadow:0 1px 0 rgba(255,255,255,.3), 0 -1px 1px rgba(0,0,0,.3);
+    z-index:2;
+  }
+  .hero-badge::after{
+    content:"";
+    position:absolute;
+    top:10%;
+    left:16%;
+    width:32%;
+    height:18%;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
+    transform:rotate(-25deg);
+    pointer-events:none;
+  }
+  .hero-photo-cap{
+    margin-top:14px;
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .hero-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:60px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero-bottom a{
+    color:var(--ink-soft);
+    transition:color .3s ease;
+  }
+  .hero-bottom a:hover{color:var(--accent-deep);}
+  .hero-scroll{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-scroll .line{
+    width:26px;height:1px;
+    background:var(--line-strong);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-scroll .line::after{
+    content:"";
+    position:absolute;
+    left:-100%;top:0;
+    width:100%;height:100%;
+    background:var(--accent);
+    animation:scrollpulse-h 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollpulse-h{
+    0%{left:-100%;}
+    50%{left:0;}
+    100%{left:100%;}
+  }
+
+  /* featured work strip */
+  .featured{
+    margin-top:100px;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:5vw;
+    align-items:end;
+  }
+  .featured-visual{
+    aspect-ratio:4/3;
+    background:
+      repeating-linear-gradient(135deg, var(--paper) 0 2px, transparent 2px 26px),
+      linear-gradient(160deg, #DCD3B6, #C9AE7A 60%, var(--accent) 130%);
+    border:1px solid var(--line-strong);
+    position:relative;
+    overflow:hidden;
+  }
+  .featured-visual img,
+  .project-visual img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .featured-visual .tag{
+    position:absolute;
+    top:20px;left:20px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.12em;
+    color:var(--bg);
+    background:var(--ink);
+    padding:6px 10px;
+  }
+  .featured-visual::after{
+    content:"01";
+    position:absolute;
+    right:20px;bottom:14px;
+    font-family:'Fraunces',serif;
+    font-size:96px;
+    color:rgba(245,242,234,0.55);
+    line-height:1;
+  }
+  .featured-text .eyebrow{margin-bottom:14px;}
+  .featured-text h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(26px,3.2vw,44px);
+    line-height:1.05;
+    margin-bottom:18px;
+  }
+  .featured-text p{
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.7;
+    max-width:44ch;
+    margin-bottom:22px;
+  }
+  .link-arrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    border-bottom:1px solid var(--accent-deep);
+    padding-bottom:4px;
+    transition:gap .3s ease, color .3s ease;
+  }
+  .link-arrow:hover{gap:14px;color:var(--ink);}
+
+  /* ============ SECTION SHELL ============ */
+  section.block{
+    padding:150px 0 60px;
+    border-top:1px solid var(--line);
+    scroll-margin-top:calc(var(--nav-h) + 24px);
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:80px;
+    flex-wrap:wrap;
+  }
+  .section-title{
+    font-size:clamp(48px,8vw,96px);
+    text-transform:uppercase;
+  }
+  .section-index{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:.1em;
+  }
+
+  /* ============ ABOUT ============ */
+  .about-grid{
+    margin-bottom:70px;
+  }
+  .about-lede{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(22px,2.6vw,34px);
+    line-height:1.4;
+    color:var(--ink);
+    max-width:52ch;
+  }
+  .about-lede em{color:var(--accent-deep);font-style:italic;}
+
+  .about-quad{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+  }
+  .quad-item{
+    padding:40px 5vw 40px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .quad-item:nth-child(odd){
+    border-right:1px solid var(--line);
+    padding-right:5vw;
+  }
+  .quad-item:nth-child(even){
+    padding-left:5vw;
+  }
+  .quad-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:20px;
+  }
+  .qnum{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:.05em;
+  }
+  .quad-head h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:22px;
+    text-transform:uppercase;
+  }
+  .quad-item p{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    max-width:42ch;
+    margin-bottom:12px;
+  }
+  .quad-item p:last-child{margin-bottom:0;}
+
+  .quad-item .quad-meta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:14px;
+  }
+  .quad-item .quad-school{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    font-weight:500;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    margin-bottom:6px;
+  }
+  .quad-school .dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--accent);
+    margin-right:12px;
+    flex-shrink:0;
+  }
+  .quad-item .quad-sub{
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+
+  .quad-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .quad-tags span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    padding:9px 14px;
+  }
+
+  .quad-rows{
+    display:flex;
+    flex-direction:column;
+  }
+  .quad-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .quad-row:first-child{padding-top:0;}
+  .quad-row .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .quad-row .value{
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    color:var(--ink);
+  }
+
+  /* ============ PROJECTS ============ */
+  .project{
+    border-top:1px solid var(--line);
+    padding:70px 0;
+    display:grid;
+    grid-template-columns: 90px 1fr 1.1fr;
+    gap:40px;
+  }
+  .project:last-child{border-bottom:1px solid var(--line);}
+  .project .pnum{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    color:var(--accent);
+    padding-top:8px;
+  }
+  .project-title{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(28px,3.4vw,46px);
+    line-height:1.05;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .project-meta{
+    display:flex;gap:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:26px;
+  }
+  .project-visual{
+    aspect-ratio:16/10;
+    background:linear-gradient(150deg,#E4DCC5,#C9AE7A 70%, var(--accent-deep) 140%);
+    border:1px solid var(--line-strong);
+    margin-bottom:26px;
+    position:relative;
+    overflow:hidden;
+  }
+  .project-visual.placeholder{
+    display:flex;align-items:center;justify-content:center;
+    background:repeating-linear-gradient(45deg, var(--paper), var(--paper) 10px, var(--bg-soft) 10px, var(--bg-soft) 20px);
+  }
+  .project-visual.placeholder span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);
+    background:var(--bg);
+    padding:8px 14px;
+    border:1px solid var(--line-strong);
+  }
+  .case-study{
+    display:grid;
+    gap:22px;
+  }
+  .case-study .cs-block h4{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    margin-bottom:8px;
+  }
+  .case-study .cs-block p{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink-soft);
+  }
+  .placeholder-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    font-style:italic;
+  }
+
+  /* ============ EXPERIENCE ============ */
+  .timeline{
+    position:relative;
+  }
+  .tl-item{
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap:40px;
+    border-top:1px solid var(--line);
+    padding:44px 0;
+  }
+  .tl-item:last-child{border-bottom:1px solid var(--line);}
+  .tl-year{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    font-style:italic;
+    color:var(--accent-deep);
+  }
+  .tl-role{
+    font-family:'Fraunces',serif;
+    font-size:clamp(20px,2.2vw,30px);
+    font-weight:500;
+    margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  .tl-org{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:14px;
+    text-transform:uppercase;
+  }
+  .tl-desc{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    max-width:60ch;
+  }
+
+  .cert-row{
+  display:flex;
+  gap:16px;
+  margin-top:26px;
+  flex-wrap:wrap;
+}
+.cert-thumb{
+  width:100%;
+  max-width:360px;
+}
+.cert-thumb img{
+  width:100%;
+  object-fit:cover;
+  display:block;
+  border:1px solid var(--line-strong);
+  background:var(--paper);
+}
+.cert-thumb img.landscape{
+  aspect-ratio:4/3;
+}
+.cert-thumb img.portrait{
+  aspect-ratio:9/16;
+}
+.cert-thumb span{
+  display:block;
+  margin-top:8px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+  /* ============ BLOG ============ */
+  .blog-row{
+    display:grid;
+    grid-template-columns: 60px 1fr auto auto 24px;
+    align-items:center;
+    gap:24px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    transition:background .3s ease;
+  }
+  .blog-row:last-child{border-bottom:1px solid var(--line);}
+  .blog-row:hover{background:var(--paper);}
+  .blog-row:hover .blog-title{color:var(--accent-deep);}
+  .blog-row .bnum{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+  .blog-title{
+    font-family:'Fraunces',serif;
+    font-size:clamp(18px,2.2vw,26px);
+    font-weight:400;
+    transition:color .3s ease;
+  }
+  .blog-cat{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  }
+  .blog-date{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;color:var(--muted);
+    white-space:nowrap;
+  }
+  .blog-row .arrow{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    color:var(--accent);
+    transform:translateX(-6px);
+    opacity:0;
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .blog-row:hover .arrow{transform:translateX(0);opacity:1;}
+
+  .blog-list .blog-row:nth-child(1).reveal{transition-delay:0s;}
+  .blog-list .blog-row:nth-child(2).reveal{transition-delay:0.1s;}
+  .blog-list .blog-row:nth-child(3).reveal{transition-delay:0.2s;}
+  .blog-list .blog-row:nth-child(4).reveal{transition-delay:0.3s;}
+  .blog-list .blog-row:nth-child(5).reveal{transition-delay:0.4s;}
+
+  .blog-row{cursor:pointer;}
+  .blog-row:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:-2px;
+    background:var(--paper);
+  }
+
+  .blog-hint{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--muted);
+    margin-bottom:24px;
+  }
+
+  /* ============ ARTICLE PREVIEW OVERLAY ============ */
+  .article-overlay{
+    position:fixed;
+    inset:0;
+    z-index:120;
+    background:var(--bg);
+    transform:translateY(100%);
+    transition:transform 0.6s cubic-bezier(.19,.72,.31,1);
+    overflow-y:auto;
+    pointer-events:none;
+  }
+  body.article-open .article-overlay{
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .article-inner{
+    max-width:760px;
+    margin:0 auto;
+    padding:100px 6vw 140px;
+  }
+  .article-topbar{
+    position:fixed;
+    top:0;left:0;right:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 6vw;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    z-index:5;
+  }
+  .article-topbar .back{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;align-items:center;gap:8px;
+    background:none;border:none;appearance:none;-webkit-appearance:none;
+    cursor:pointer;padding:6px;
+  }
+  .article-topbar .back:hover{color:var(--ink);}
+  .article-close{
+    width:34px;height:34px;
+    display:flex;align-items:center;justify-content:center;
+    background:none;border:1px solid var(--line-strong);
+    border-radius:50%;
+    appearance:none;-webkit-appearance:none;
+    cursor:pointer;
+    font-family:'Fraunces',serif;
+    font-size:16px;
+    color:var(--ink);
+    padding:0;
+  }
+  .article-close:hover{background:var(--ink);color:var(--bg);}
+
+  .preview-flag{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    border:1px solid var(--accent-deep);
+    padding:5px 10px;
+    margin-bottom:28px;
+  }
+  .article-eyebrow{
+    display:flex;
+    gap:16px;
+    margin-bottom:18px;
+  }
+  .article-title{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(34px,6vw,64px);
+    line-height:1.05;
+    margin-bottom:34px;
+  }
+  .article-body p{
+    font-size:17px;
+    line-height:1.85;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+    max-width:64ch;
+  }
+  .article-body p:first-of-type::first-letter{
+    font-family:'Fraunces',serif;
+    font-size:64px;
+    font-weight:600;
+    float:left;
+    line-height:0.8;
+    margin:6px 10px 0 0;
+    color:var(--accent-deep);
+  }
+  .article-body blockquote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:26px;
+    line-height:1.4;
+    color:var(--ink);
+    border-left:2px solid var(--accent);
+    padding-left:24px;
+    margin:40px 0;
+    max-width:56ch;
+  }
+
+  @media (max-width:860px){
+    .article-inner{padding:90px 7vw 100px;}
+    .article-body p:first-of-type::first-letter{font-size:44px;}
+    .article-body blockquote{font-size:21px;}
+  }
+
+
+  /* ============ CONTACT ============ */
+  .contact-title{
+    font-size:clamp(56px,10vw,132px);
+    text-transform:uppercase;
+    margin-bottom:70px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+    border-top:1px solid var(--line);
+    padding-top:50px;
+  }
+  .contact-col .eyebrow{margin-bottom:16px;}
+  .contact-col a, .contact-col .item{
+    display:block;
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    transition:color .3s ease, padding-left .3s ease;
+  }
+  .contact-col a:hover{color:var(--accent-deep);padding-left:8px;}
+  .cv-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-top:6px;
+    padding:14px 22px;
+    background:var(--ink);
+    color:var(--bg);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    border:1px solid var(--ink);
+    transition:background .3s ease, color .3s ease;
+  }
+  .cv-btn:hover{background:transparent;color:var(--ink);}
+  /* higher-specificity overrides so this doesn't inherit the plain
+     ".contact-col a" link styling (big serif type, underline border) */
+  .contact-grid .cv-btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    padding:18px 30px;
+    border-radius:999px;
+    border:1px solid var(--ink);
+    box-shadow:0 1px 3px rgba(23,21,15,0.12);
+    transition:background .4s cubic-bezier(.16,.84,.44,1),
+               color .35s ease,
+               border-color .35s ease,
+               box-shadow .4s ease,
+               transform .4s cubic-bezier(.16,.84,.44,1);
+  }
+  .contact-grid .cv-btn .arrow-ic{
+    display:inline-flex;
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .contact-grid .cv-btn:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--ink);
+    transform:translateY(-3px);
+    box-shadow:0 14px 28px rgba(185,129,42,0.32);
+  }
+  .contact-grid .cv-btn:hover .arrow-ic{transform:translate(3px,-3px);}
+  .contact-grid .cv-btn:active{transform:translateY(-1px);box-shadow:0 6px 14px rgba(185,129,42,0.28);}
+
+  footer{
+    margin-top:120px;
+    padding:40px 0 50px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  footer .fmark{
+    font-family:'Fraunces',serif;
+    font-size:20px;
+  }
+  footer .fmeta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:860px){
+    .container{padding:0 7vw;}
+
+    /* nav: bigger tap target, tighter brand */
+    nav{padding:20px 7vw;}
+    nav .brand{font-size:13px;}
+    .menu-btn{gap:16px;padding:10px 4px;}
+    .menu-btn span#menuLabel{font-size:11px;}
+
+    /* overlay menu: smaller type, generous tap height */
+    .overlay-menu a{
+      font-size:clamp(28px,10vw,44px);
+      padding:22px 4px;
+      gap:16px;
+    }
+    .overlay-foot{font-size:10px;bottom:24px;}
+
+    /* hero: rebalance vertical rhythm for a tall narrow screen */
+    .hero{padding-top:calc(var(--nav-h) + 24px);padding-bottom:40px;min-height:auto;}
+    .hero-split{grid-template-columns:1fr;gap:40px;}
+    .hero-right{max-width:320px;width:78%;margin:0 auto;}
+    .hero-name{font-size:clamp(52px,16vw,84px);}
+    .hero-meta{margin-top:20px;gap:6px 14px;font-size:11px;}
+    .hero-meta span:not(:last-child)::after{margin-left:14px;}
+    .tagline-row{margin-top:40px;}
+    .tagline{font-size:clamp(20px,5.6vw,26px);}
+    .hero-photo-row{justify-content:center;margin-top:36px;}
+    .hero-photo{width:130px;}
+    .scroll-indicator{position:static;margin-top:48px;}
+    .scroll-indicator .line{height:24px;}
+
+    .featured{grid-template-columns:1fr;gap:32px;margin-top:64px;}
+    .featured-visual::after{font-size:64px;}
+
+    section.block{padding:88px 0 36px;}
+    .section-head{margin-bottom:52px;}
+    .section-title{font-size:clamp(40px,13vw,64px);}
+
+    .about-lede{font-size:clamp(19px,5.4vw,24px);max-width:none;}
+    .about-quad{grid-template-columns:1fr;}
+    .quad-item, .quad-item:nth-child(odd), .quad-item:nth-child(even){
+      padding:32px 0;
+      border-right:none;
+    }
+
+    /* project: reorder so the visual leads, title follows, prose last — a phone-first sequence, not a squeezed desktop grid */
+    .project{
+      grid-template-columns:1fr;
+      gap:0;
+      padding:48px 0;
+    }
+    .project > div:nth-of-type(2){display:contents;}
+    .project .pnum{order:1;padding-top:0;margin-bottom:10px;}
+    .project-visual{order:2;margin-bottom:20px;aspect-ratio:4/3;}
+    .project-title{order:3;font-size:clamp(26px,8vw,36px);margin-bottom:12px;}
+    .project-meta{order:4;margin-bottom:0;}
+    .placeholder-note{order:5;margin-top:14px;}
+    .case-study{order:6;margin-top:32px;gap:20px;}
+
+    .timeline .tl-item{grid-template-columns:1fr;gap:8px;padding:32px 0;}
+    .tl-role{font-size:clamp(20px,6vw,26px);}
+
+    /* blog: keep it scannable, drop the category, widen tap area */
+    .blog-row{grid-template-columns:30px 1fr auto;gap:14px;padding:20px 0;}
+    .blog-cat{display:none;}
+    .blog-title{font-size:clamp(16px,4.6vw,20px);}
+    .blog-row .arrow{opacity:1;transform:none;}
+
+    .contact-title{font-size:clamp(48px,15vw,72px);margin-bottom:48px;}
+    .contact-grid{grid-template-columns:1fr;gap:40px;padding-top:36px;}
+    .contact-col a, .contact-col .item{font-size:19px;padding:16px 0;}
+    .cv-btn{width:100%;justify-content:center;padding:16px 22px;}
+    .contact-grid .cv-btn{width:100%;justify-content:center;padding:18px 22px;}
+
+    footer{margin-top:80px;flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="brand">FREDDY LIMOTHIE</a>
+  <button class="menu-btn" id="menuToggle" aria-label="Toggle menu">
+    <span id="menuLabel">MENU</span>
+    <span class="bars"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<div class="overlay-menu" id="overlayMenu">
+  <ol>
+    <li><a href="#home" data-close><span class="num">01</span> Home</a></li>
+    <li><a href="#about" data-close><span class="num">02</span> About</a></li>
+    <li><a href="#project" data-close><span class="num">03</span> Project</a></li>
+    <li><a href="#experience" data-close><span class="num">04</span> Experience</a></li>
+    <li><a href="#blog" data-close><span class="num">05</span> Blog</a></li>
+    <li><a href="#contact" data-close><span class="num">06</span> Contact</a></li>
+  </ol>
+  <div class="overlay-foot">
+    <span>Universitas Indonesia — CS</span>
+    <span>Depok, ID</span>
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- HOME -->
+  <section class="hero" id="home">
+    <div class="hero-top reveal in">
+      <span>Computer Science Student</span>
+      <span>Universitas Indonesia &middot; 2026</span>
+    </div>
+
+    <div class="hero-split">
+      <div class="hero-left">
+        <p class="hero-tags reveal in">Software &middot; AI / ML</p>
+        <h1 class="display hero-name reveal in">Freddy<br>Limothie</h1>
+
+        <p class="tagline reveal in reveal-delay-1">I build. I explore. I
+          <span class="word-cycle" id="wordCycle">
+            <span class="active">learn.</span>
+            <span>question.</span>
+            <span>try again.</span>
+          </span>
+        </p>
+
+        <a href="#project" class="hero-cta reveal in reveal-delay-2">Explore My Work <span>&#8600;</span></a>
+      </div>
+
+      <div class="hero-right reveal in reveal-delay-1">
+        <p class="hero-photo-label">01 / Portrait</p>
+        <div class="hero-photo-frame">
+          <img src="BUKTI/Photo_Profile.png" alt="Freddy Limothie at Danau Kenanga, Universitas Indonesia">
+          <div lass="hero-badge"><span>CS</span><span>UI</span><span>&rsquo;26</span></div>
+        </div>
+        <div class="hero-photo-cap">
+          <span>Danau Kenanga, UI</span>
+          <span>2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bottom reveal in">
+      <span class="hero-scroll"><span class="line"></span> Scroll</span>
+      <a href="#contact">Let&rsquo;s Connect <span>&#8600;</span></a>
+    </div>
+
+    <div class="featured reveal" id="featured">
+      <div class="featured-visual"><img src="BUKTI/MPKVOTE.png" alt="Project preview placeholder"><span class="tag">Selected Work</span></div>
+      <div class="featured-text">
+        <p class="eyebrow">Featured — Web Development, 2025</p>
+        <h3>Student Representative<br>Voting Platform</h3>
+        <p>A web-based voting platform built for the election of the leader student representative.</p>
+        <a href="https://github.com/PelediZ/MPKDYSHSVOTE" class="link-arrow">View project →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block" id="about">
+    <div class="section-head reveal">
+      <h2 class="display section-title">About<br>Me</h2>
+      <span class="section-index">02 / 06</span>
+    </div>
+
+    <div class="about-grid">
+      <p class="about-lede reveal reveal-rise">
+        A first-year Computer Science student at <em>Universitas Indonesia</em>, curious about software development, artificial intelligence, and what happens when technology turns into something people can actually use. Still early — still learning in public, one module at a time.
+      </p>
+    </div>
+
+    <div class="about-quad">
+      <div class="quad-item reveal reveal-rise">
+        <div class="quad-head"><span class="qnum">01</span><h4>Who I Am</h4></div>
+        <p>I'm curious about how technology works — and more importantly, what can be built with it.</p>
+        <p>I'm still at the beginning of my journey: learning fundamentals, experimenting with ideas, and slowly turning what I learn into projects.</p>
+      </div>
+
+      <div class="quad-item reveal reveal-rise">
+        <div class="quad-head"><span class="qnum">02</span><h4>Education</h4></div>
+        <p class="quad-meta">2026 — Present</p>
+        <p class="quad-school"><span class="dot"></span>Universitas Indonesia</p>
+        <p class="quad-sub">Computer Science<br>Undergraduate</p>
+      </div>
+
+      <div class="quad-item reveal reveal-rise">
+        <div class="quad-head"><span class="qnum">03</span><h4>Currently Exploring</h4></div>
+        <div class="quad-tags">
+          <span>Artificial Intelligence</span>
+          <span>Machine Learning</span>
+          <span>Software Development</span>
+        </div>
+      </div>
+
+      <div class="quad-item reveal reveal-rise">
+        <div class="quad-head"><span class="qnum">04</span><h4>Skills</h4></div>
+        <div class="quad-rows">
+          <div class="quad-row"><span class="label">Programming</span><span class="value">Python, C++, C, JavaScript</span></div>
+          <div class="quad-row"><span class="label">Database</span><span class="value">SQL</span></div>
+          <div class="quad-row"><span class="label">Markup & Styling</span><span class="value">HTML, CSS</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="block" id="project">
+    <div class="section-head reveal">
+      <h2 class="display section-title">Selected<br>Projects</h2>
+      <span class="section-index">03 / 06</span>
+    </div>
+
+    <div class="project reveal reveal-slide">
+      <div class="pnum reveal reveal-pop">01</div>
+      <div>
+        <h3 class="project-title">Student Rep.<br>Voting Platform</h3>
+        <div class="project-meta"><span>Web Development</span><span>2026</span></div>
+        <div class="project-visual"><img src="BUKTI/MPKVOTE.png" alt="Project preview placeholder"></div>
+        <!-- <p class="placeholder-note">Screenshots and live link — coming soon.</p> -->
+      </div>
+      <div class="case-study">
+        <div class="cs-block">
+          <h4>The Project</h4>
+          <p>A web-based platform built to run the election for leader student representative at school — letting students view candidates and cast their vote online instead of on paper.</p>
+        </div>
+        <div class="cs-block">
+          <h4>The Problem</h4>
+          <p>The paper-based voting system was slow, prone to errors, and took too much time to count manually.</p>
+        </div>
+        <div class="cs-block">
+          <h4>The Solution</h4>
+          <p>A secure web app that lets students vote online from any device. It ensures one vote per student and counts the results instantly.</p>
+        </div>
+        <div class="cs-block">
+          <h4>My Role</h4>
+          <p>I worked as a Full-Stack Developer.</p>
+        </div>
+        <div class="cs-block">
+          <h4>Technology</h4>
+          <p>HTML, CSS, and JS</p>
+        </div>
+        <div class="cs-block">
+          <h4>What I Learned</h4>
+          <p>I learned how to build secure authentication, design a simple interface that anyone can use, and manage my time to meet a strict deadline.</p>
+        </div>
+        <a href="https://github.com/PelediZ/MPKDYSHSVOTE" class="link-arrow">View project →</a>
+      </div>
+    </div>
+
+  <!-- EXPERIENCE -->
+  <section class="block" id="experience">
+    <div class="section-head reveal">
+      <h2 class="display section-title">Experience</h2>
+      <span class="section-index">04 / 06</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal reveal-rise">
+        <div class="tl-year">2026-PRESENT</div>
+        <div>
+          <p class="tl-role">Open House Fasilkom UI</p>
+          <p class="tl-org">Member of public Relation</p>
+          <p class="tl-desc">TBA</p>
+          <div class="cert-row">
+            <div class="cert-thumb">
+              <img src=""class="landscape" alt="TBA">
+              <span>Certificate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="tl-item reveal reveal-rise">
+    <div class="tl-year">2025-2026</div>
+      <div>
+        <p class="tl-role">Project Spark</p>
+        <p class="tl-org">Solar and Technical Division</p>
+        <p class="tl-desc">Helped build a website to introduce the organization.</p>
+        <div class="cert-row">
+          <div class="cert-thumb">
+            <img src="BUKTI/PS.png"class="landscape" alt="Certificate placeholder">
+            <span>Certificate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal reveal-rise">
+        <div class="tl-year">2024-2025</div>
+        <div>
+          <p class="tl-role">Student Representative Organization</p>
+          <p class="tl-org">Member of the Strategic Planning Division</p>
+          <p class="tl-desc">Helped make an event calendar and led the build of the division's internal website, improving how updates reached members.</p>
+          <div class="cert-row">
+            <div class="cert-thumb">
+              <img src="BUKTI/FREDDY_LIMOTHIE_2425.png"class="landscape" alt="Certificate placeholder">
+              <span>Certificate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-rise">
+        <div class="tl-year">2024</div>
+        <div>
+          <p class="tl-role">Codero National Competition</p>
+          <p class="tl-org">Codero National Competition — Smart Greenhouse</p>
+          <p class="tl-desc">Placed 2nd and won Fan Favorite for an IoT-based smart greenhouse project.</p>
+          <div class="cert-row">
+            <div class="cert-thumb">
+              <img src="BUKTI/Freddy_Limothie_CNC_ROBOTIC.png"class="portrait" alt="Certificate placeholder">
+              <span>Certificate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="block" id="blog">
+    <div class="section-head reveal">
+      <h2 class="display section-title">Blog<br>/ Notes</h2>
+      <span class="section-index">05 / 06</span>
+    </div>
+
+    <p class="blog-hint reveal">Blog/Notes</p>
+    <div class="blog-list" id="blogList">
+      <div class="blog-row reveal" tabindex="0" role="button" data-body="python">
+        <span class="bnum">01</span>
+        <span class="blog-title">Intro</span>
+        <span class="blog-cat">Learning Log</span>
+        <span class="blog-date">22 August 2026</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact">
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <span class="section-index">06 / 06</span>
+    </div>
+    <h2 class="display contact-title reveal">Let's<br>Connect.</h2>
+
+    <div class="contact-grid reveal">
+      <div class="contact-col">
+        <p class="eyebrow">Email</p>
+        <a href="mailto:limsensen2008@gmail.com">limsensen2008@gmail.com</a>
+      </div>
+      <div class="contact-col">
+        <p class="eyebrow">Social</p>
+        <a href="https://github.com/PelediZ">GitHub — Freddy Limothie</a>
+        <a href="https://www.linkedin.com/in/freddy-limothie-0a9190320/">LinkedIn — Freddy Limothie</a>
+      </div>
+      <div class="contact-col">
+        <p class="eyebrow">Resume</p>
+        <a href="https://drive.google.com/file/d/1Pf3CtssU8aJKrMyzsOt1nzUv4BKHuF0K/view?usp=sharing" class="cv-btn">Download CV <span class="arrow-ic">↗</span></a>
+      </div>
+    </div>
+
+    <footer>
+      <div>
+        <p class="fmark">Freddy Limothie</p>
+        <p class="fmeta">Computer Science — Universitas Indonesia</p>
+      </div>
+      <p class="fmeta">© 2026</p>
+    </footer>
+  </section>
+
+</main>
+
+<div class="article-overlay" id="articleOverlay">
+  <div class="article-topbar">
+    <button class="back" id="articleBack">← Back to Blog</button>
+    <button class="article-close" id="articleClose" aria-label="Close preview">✕</button>
+  </div>
+  <div class="article-inner">
+    <!-- <span class="preview-flag">Preview — placeholder text, not yet published</span> -->
+    <div class="article-eyebrow eyebrow">
+      <span id="articleCat">Learning Log</span>
+      <span id="articleDate">22 August 2026</span>
+    </div>
+    <h1 class="article-title" id="articleTitle">Title</h1>
+    <div class="article-body" id="articleBody"></div>
+  </div>
+</div>
+
+<script>
+  // Keep hero content clear of the fixed nav by measuring its REAL height
+  // (font loading / text wrapping / viewport width can all change it) instead
+  // of relying on a guessed padding-top value.
+  const navEl = document.querySelector('nav');
+  function setNavHeight(){
+    const h = navEl.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--nav-h', h + 'px');
+  }
+  setNavHeight();
+  window.addEventListener('resize', setNavHeight);
+  window.addEventListener('orientationchange', setNavHeight);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(setNavHeight);
+  }
+
+  // Keep the menu-reveal circle anchored to the real button position
+  const menuToggleEl = document.getElementById('menuToggle');
+  const menuBarsEl = menuToggleEl.querySelector('.bars');
+  function setMenuOrigin(){
+    const r = menuBarsEl.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    document.documentElement.style.setProperty('--menu-origin-x', x + 'px');
+    document.documentElement.style.setProperty('--menu-origin-y', y + 'px');
+  }
+  setMenuOrigin();
+  window.addEventListener('resize', setMenuOrigin);
+  window.addEventListener('orientationchange', setMenuOrigin);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(setMenuOrigin);
+  }
+
+  // Menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const menuLabel = document.getElementById('menuLabel');
+  menuToggle.addEventListener('click', () => {
+    document.body.classList.toggle('menu-open');
+    menuLabel.textContent = document.body.classList.contains('menu-open') ? 'CLOSE' : 'MENU';
+  });
+  document.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', () => {
+      document.body.classList.remove('menu-open');
+      menuLabel.textContent = 'MENU';
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Hero word cycle
+  const wordCycleBox = document.getElementById('wordCycle');
+  const cycleWords = document.querySelectorAll('#wordCycle span');
+  let cycleIndex = 0;
+
+  function sizeWordCycle(){
+    let max = 0;
+    cycleWords.forEach(s => { max = Math.max(max, s.offsetWidth); });
+    if (max > 0) wordCycleBox.style.width = Math.ceil(max) + 'px';
+  }
+  sizeWordCycle();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(sizeWordCycle);
+  }
+  window.addEventListener('resize', sizeWordCycle);
+
+  setInterval(() => {
+    const current = cycleWords[cycleIndex];
+    const nextIndex = (cycleIndex + 1) % cycleWords.length;
+    const next = cycleWords[nextIndex];
+    current.classList.remove('active');
+    current.classList.add('leaving');
+    next.classList.add('active');
+    setTimeout(() => current.classList.remove('leaving'), 600);
+    cycleIndex = nextIndex;
+  }, 2600);
+
+  // Blog article preview overlay
+  const POSTS = {
+    python: {
+      paragraphs: [
+        "Hi, my name is Freddy",
+      ],
+      quote: "Stay Strong"
+    },
+  };
+
+  const articleOverlay = document.getElementById('articleOverlay');
+  const articleTitle = document.getElementById('articleTitle');
+  const articleCat = document.getElementById('articleCat');
+  const articleDate = document.getElementById('articleDate');
+  const articleBody = document.getElementById('articleBody');
+
+  function openArticle(row){
+    const title = row.querySelector('.blog-title').textContent;
+    const cat = row.querySelector('.blog-cat').textContent;
+    const key = row.getAttribute('data-body');
+    const post = POSTS[key] || { paragraphs: ["Placeholder text — content not yet written."] };
+
+    articleTitle.textContent = title;
+    articleCat.textContent = cat;
+    articleDate.textContent = '';
+
+    articleBody.innerHTML = '';
+    post.paragraphs.forEach((text, i) => {
+      const p = document.createElement('p');
+      p.textContent = text;
+      articleBody.appendChild(p);
+      if (i === 0 && post.quote) {
+        const q = document.createElement('blockquote');
+        q.textContent = post.quote;
+        articleBody.appendChild(q);
+      }
+    });
+
+    document.body.classList.add('article-open');
+    articleOverlay.scrollTop = 0;
+  }
+
+  function closeArticle(){
+    document.body.classList.remove('article-open');
+  }
+
+  document.querySelectorAll('.blog-row').forEach(row => {
+    row.addEventListener('click', () => openArticle(row));
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openArticle(row);
+      }
+    });
+  });
+  document.getElementById('articleClose').addEventListener('click', closeArticle);
+  document.getElementById('articleBack').addEventListener('click', closeArticle);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeArticle();
+  });
+</script>
+
+</body>
+</html>
